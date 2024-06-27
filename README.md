@@ -18,6 +18,24 @@ hack
 
 clean empty space using vscode regex replacements
 
+basic enumeration + HTTP probing
+
+`subfinder -d [example.com](http://example.com) | httpx -o example.httpx`
+
+issues an HTTP request to the host
+
+`curl -sk https://yourwebsite`
+
+burte-force with different HTTP method
+
+`ffuf -u [https://yourwebsite.site/FU](https://yourwebsite.site/FUXX)ZZ -w english-words.txt -mc all -fw 6`
+
+`ffuf -x POST -u [https://yourwebsite.site/FU](https://yourwebsite.site/FUXX)ZZ -w english-words.txt -mc all -fw 6`
+
+masscan, probed for HTTP(s) servers, and grabbed the HTTP titles.
+
+`masscan -p 80,443 -iL ranges -oL out.txt`
+
 
 
 
