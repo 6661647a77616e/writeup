@@ -299,7 +299,7 @@ You can find the flag is hidden in the body part **between this line of code** ;
 ```
 
 
-# Mob psycho
+# 14. Mob psycho
 
 check filetype of said apk, turns out just a zip, unzizp it.
 
@@ -318,4 +318,212 @@ find txt files and cat the its contain
 
 this is a hex string, convert to string and you'll het your flag.
 
+# 15. FastCheck
 
+if you strings bin | grep pico , you will get half the flag. proceed with ghidra seach pico string and export related function, turns out to be the main function. export this function into c codes.
+
+```c
+
+/* WARNING: Removing unreachable block (ram,0x0010170c) */
+
+undefined8 main(void)
+
+{
+  char cVar1;
+  char *pcVar2;
+  long in_FS_OFFSET;
+  allocator<char> local_249;
+  basic_string<> local_248 [32];
+  basic_string local_228 [32];
+  basic_string<> local_208 [32];
+  basic_string local_1e8 [32];
+  basic_string local_1c8 [32];
+  basic_string local_1a8 [32];
+  basic_string local_188 [32];
+  basic_string local_168 [32];
+  basic_string<> local_148 [32];
+  basic_string local_128 [32];
+  basic_string<> local_108 [32];
+  basic_string<> local_e8 [32];
+  basic_string local_c8 [32];
+  basic_string<> local_a8 [32];
+  basic_string local_88 [32];
+  basic_string local_68 [32];
+  basic_string<> local_48 [40];
+  long local_20;
+  
+  local_20 = *(long *)(in_FS_OFFSET + 0x28);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001012cf to 001012d3 has its CatchHandler @ 00101975 */
+  std::__cxx11::basic_string<>::basic_string
+            ((char *)local_248,(allocator *)"picoCTF{wELF_d0N3_mate_");
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 0010130a to 0010130e has its CatchHandler @ 00101996 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_228,(allocator *)&DAT_0010201d);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101345 to 00101349 has its CatchHandler @ 001019b1 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_208,(allocator *)&DAT_0010201f);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101380 to 00101384 has its CatchHandler @ 001019cc */
+  std::__cxx11::basic_string<>::basic_string((char *)local_1e8,(allocator *)&DAT_00102021);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001013bb to 001013bf has its CatchHandler @ 001019e7 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_1c8,(allocator *)&DAT_00102023);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001013f6 to 001013fa has its CatchHandler @ 00101a02 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_1a8,(allocator *)&DAT_00102025);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101431 to 00101435 has its CatchHandler @ 00101a1d */
+  std::__cxx11::basic_string<>::basic_string((char *)local_188,(allocator *)&DAT_0010201f);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 0010146c to 00101470 has its CatchHandler @ 00101a38 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_168,(allocator *)&DAT_00102027);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001014a7 to 001014ab has its CatchHandler @ 00101a53 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_148,(allocator *)&DAT_00102025);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001014e2 to 001014e6 has its CatchHandler @ 00101a6e */
+  std::__cxx11::basic_string<>::basic_string((char *)local_128,(allocator *)&DAT_00102025);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 0010151d to 00101521 has its CatchHandler @ 00101a89 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_108,(allocator *)&DAT_00102029);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101558 to 0010155c has its CatchHandler @ 00101aa4 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_e8,(allocator *)&DAT_0010202b);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101593 to 00101597 has its CatchHandler @ 00101abf */
+  std::__cxx11::basic_string<>::basic_string((char *)local_c8,(allocator *)&DAT_0010202d);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 001015ce to 001015d2 has its CatchHandler @ 00101ada */
+  std::__cxx11::basic_string<>::basic_string((char *)local_a8,(allocator *)&DAT_00102021);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101606 to 0010160a has its CatchHandler @ 00101af5 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_88,(allocator *)&DAT_00102025);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 0010163e to 00101642 has its CatchHandler @ 00101b0d */
+  std::__cxx11::basic_string<>::basic_string((char *)local_68,(allocator *)&DAT_00102029);
+  std::allocator<char>::~allocator(&local_249);
+  std::allocator<char>::allocator();
+                    /* try { // try from 00101676 to 0010167a has its CatchHandler @ 00101b25 */
+  std::__cxx11::basic_string<>::basic_string((char *)local_48,(allocator *)&DAT_0010202f);
+  std::allocator<char>::~allocator(&local_249);
+                    /* try { // try from 00101699 to 0010185f has its CatchHandler @ 00101b3d */
+  pcVar2 = (char *)std::__cxx11::basic_string<>::operator[]((ulong)local_208);
+  if (*pcVar2 < 'B') {
+    std::__cxx11::basic_string<>::operator+=(local_248,local_c8);
+  }
+  pcVar2 = (char *)std::__cxx11::basic_string<>::operator[]((ulong)local_a8);
+  if (*pcVar2 != 'A') {
+    std::__cxx11::basic_string<>::operator+=(local_248,local_68);
+  }
+  pcVar2 = (char *)std::__cxx11::basic_string<>::operator[]((ulong)local_1c8);
+  cVar1 = *pcVar2;
+  pcVar2 = (char *)std::__cxx11::basic_string<>::operator[]((ulong)local_148);
+  if ((int)cVar1 - (int)*pcVar2 == 3) {
+    std::__cxx11::basic_string<>::operator+=(local_248,local_1c8);
+  }
+  std::__cxx11::basic_string<>::operator+=(local_248,local_1e8);
+  std::__cxx11::basic_string<>::operator+=(local_248,local_188);
+  pcVar2 = (char *)std::__cxx11::basic_string<>::operator[]((ulong)local_168);
+  if (*pcVar2 == 'G') {
+    std::__cxx11::basic_string<>::operator+=(local_248,local_168);
+  }
+  std::__cxx11::basic_string<>::operator+=(local_248,local_1a8);
+  std::__cxx11::basic_string<>::operator+=(local_248,local_88);
+  std::__cxx11::basic_string<>::operator+=(local_248,local_228);
+  std::__cxx11::basic_string<>::operator+=(local_248,local_128);
+  std::__cxx11::basic_string<>::operator+=(local_248,'}');
+  std::__cxx11::basic_string<>::~basic_string(local_48);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_68);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_88);
+  std::__cxx11::basic_string<>::~basic_string(local_a8);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_c8);
+  std::__cxx11::basic_string<>::~basic_string(local_e8);
+  std::__cxx11::basic_string<>::~basic_string(local_108);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_128);
+  std::__cxx11::basic_string<>::~basic_string(local_148);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_168);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_188);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_1a8);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_1c8);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_1e8);
+  std::__cxx11::basic_string<>::~basic_string(local_208);
+  std::__cxx11::basic_string<>::~basic_string((basic_string<> *)local_228);
+  std::__cxx11::basic_string<>::~basic_string(local_248);
+  if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
+    return 0;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+```
+
+use chatgpt to translate this code into readable c code
+
+```c
+
+<BS>#include <iostream>
+#include <string>
+
+int main() {
+    std::string local_248 = "picoCTF{wELF_d0N3_mate_";
+    std::string local_228 = "}";
+    std::string local_208 = "y";
+    std::string local_1e8 = "o";
+    std::string local_1c8 = "k";
+    std::string local_1a8 = "t";
+    std::string local_188 = "l";
+    std::string local_168 = "G";
+    std::string local_148 = "h";
+    std::string local_128 = "e";
+    std::string local_108 = "a";
+    std::string local_e8 = "u";
+    std::string local_c8 = "d";
+    std::string local_a8 = "n";
+    std::string local_88 = "t";
+    std::string local_68 = "o";
+    std::string local_48 = "m";
+
+    // Equivalent checks and concatenations
+    if (local_208[0] < 'B') {
+        local_248 += local_c8;
+    }
+    if (local_a8[0] != 'A') {
+        local_248 += local_68;
+    }
+    if (local_1c8[0] - local_148[0] == 3) {
+        local_248 += local_1c8;
+    }
+    local_248 += local_1e8;
+    local_248 += local_188;
+    if (local_168[0] == 'G') {
+        local_248 += local_168;
+    }
+    local_248 += local_1a8;
+    local_248 += local_88;
+    local_248 += local_228;
+    local_248 += local_128;
+    local_248 += '}';
+
+    std::cout << local_248 << std::endl;
+
+    return 0;
+}
+```
+
+and now you can find the half ouput.
