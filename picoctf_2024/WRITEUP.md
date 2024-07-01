@@ -297,3 +297,25 @@ You can find the flag is hidden in the body part **between this line of code** ;
 
   <p class="picoctf{}">I just deliver flags, I don't know how to read them...</p>
 ```
+
+
+# Mob psycho
+
+check filetype of said apk, turns out just a zip, unzizp it.
+
+```bash
+[eyun@eax picoctf2024]$ file mobpsycho.apk 
+mobpsycho.apk: Zip archive data, at least v1.0 to extract, compression method=store
+[eyun@eax picoctf2024]$ 7z x mobpsycho.apk 
+```
+
+find txt files and cat the its contain
+```bash
+[eyun@eax picoctf2024]$ find . -name "*.txt"
+./res/color/flag.txt
+[eyun@eax picoctf2024]$ cat ./res/color/flag.txt
+7069636f4354467b6178386d433052553676655f4e5838356c346178386d436c5f37303364643965667d```
+
+this is a hex string, convert to string and you'll het your flag.
+
+
