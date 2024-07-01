@@ -315,7 +315,7 @@ find txt files and cat the its contain
 ./res/color/flag.txt
 [eyun@eax picoctf2024]$ cat ./res/color/flag.txt
 7069636f4354467b6178386d433052553676655f4e5838356c346178386d436c5f37303364643965667d```
-
+```
 this is a hex string, convert to string and you'll het your flag.
 
 # 15. FastCheck
