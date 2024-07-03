@@ -298,6 +298,12 @@ You can find the flag is hidden in the body part **between this line of code** ;
   <p class="picoctf{}">I just deliver flags, I don't know how to read them...</p>
 ```
 
+Or simply can curl through
+```bash
+[eyun@eax ~]$ history | curl -s http://titan.picoctf.net:63495/ | grep -oE picoCTF{.*} --color=none | cut -d "\"" -f1
+picoCTF{pr3tty_c0d3_ed938a7e}
+```
+
 
 # 14. Mob psycho
 
@@ -528,13 +534,6 @@ int main() {
 
 and now you can find the half ouput.
 
-## Unminify.md
-
-The flag is visible in the class attributs of the code. Or simply can curl through
-```bash
-[eyun@eax ~]$ history | curl -s http://titan.picoctf.net:63495/ | grep -oE picoCTF{.*} --color=none | cut -d "\"" -f1
-picoCTF{pr3tty_c0d3_ed938a7e}
-```
 
 ## formant-string 1
 
