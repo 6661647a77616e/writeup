@@ -565,3 +565,42 @@ Bye!
 Then reorder the hex according to LIFO order.
 [ref 1](https://github.com/noamgariani11/picoCTF-2024-Writeup/blob/main/Binary%20Explotation/format-string-1.md) , [ref 2](https://medium.com/@mastercode112/picoctf-2024-writeup-by-mastercode-d9eae91698a1)
 
+## Packer
+
+```bash
+[eyun@eax Downloads]$ upx -d out 
+                       Ultimate Packer for eXecutables
+                          Copyright (C) 1996 - 2024
+UPX 4.2.4       Markus Oberhumer, Laszlo Molnar & John Reiser    May 9th 2024
+
+        File size         Ratio      Format      Name
+   --------------------   ------   -----------   -----------
+[WARNING] bad b_info at 0x4b718
+
+[WARNING] ... recovery at 0x4b714
+
+    877724 <-    336520   38.34%   linux/amd64   out
+```
+
+```bash
+[eyun@eax Downloads]$ strings out | grep "flag"
+Password correct, please see flag: 7069636f4354467b5539585f556e5034636b314e365f42316e34526933535f33373161613966667d
+(mode_flags & PRINTF_FORTIFY) != 0
+WARNING: Unsupported flag value(s) of 0x%x in DT_FLAGS_1.
+version == NULL || !(flags & DL_LOOKUP_RETURN_NEWEST)
+flag.c
+_dl_x86_hwcap_flags
+_dl_stack_flags
+```
+
+and then "7069636f4354467b5539585f556e5034636b314e365f42316e34526933535f33373161613966667d" this hex to strings.
+
+## Secret of the Polygot
+
+Opening the PDf you will get the part of the flag.
+
+Identify the file type of pdf , notice its an images, change to image file type with
+
+```mv flag2of2final.pdf flag1of2final.img``` open the image and you get the first part of the image.
+
+
