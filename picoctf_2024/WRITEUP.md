@@ -603,4 +603,27 @@ Identify the file type of pdf , notice its an images, change to image file type 
 
 ```mv flag2of2final.pdf flag1of2final.img``` open the image and you get the first part of the image.
 
+## Intro to Burp
 
+intercept request using burpsuite after finish register and click on "submit" for 2fa authentication
+
+```bash
+POST /dashboard HTTP/1.1
+Host: titan.picoctf.net:59156
+Content-Length: 7
+Cache-Control: max-age=0
+Accept-Language: en-US
+Upgrade-Insecure-Requests: 1
+Origin: http://titan.picoctf.net:59156
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.127 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://titan.picoctf.net:59156/dashboard
+Accept-Encoding: gzip, deflate, br
+Cookie: session=.eJw1jMsKwjAQRf8l6y5MG_PwEwSLG9chjwkV26TkgRTx3x2hndW553LnQ9yzbuRCrmlKmXTElRx0TS-IKBk11EgzsMHbQJXwwjnJhe25EoOQSjIF4DnDXWjzrKNZAGe3bfxDR1JdMXJxlv0J42pKeafs0d0PRDulCDq2xULGRu2HTSuQ95ePA78_1Aw2oQ.ZoZ19A.zeUaAVgR6Ilffcxq59eNaPynG6Y
+Connection: keep-alive
+
+otp=123
+```
+
+removes the otp=123 and forward back the request and it will be validated and you will get the flag
