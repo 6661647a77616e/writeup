@@ -1,8 +1,7 @@
 1. Reader
 
 > Salam jumaat @everyone, here jumaats challenge. It is privilege escalation based on CVE-2019-14287. Feel free to check it out :).
-
-  Privilege escalation is the process by which a user gains elevated access to resources that are normally protected from that user's standard capabilities. This can occur in two main forms:
+> Privilege escalation is the process by which a user gains elevated access to resources that are normally protected from that user's standard capabilities. This can occur in two main forms:
   
   Vertical Privilege Escalation: A lower-privileged user gains the permissions of a higher-privileged user, such as a regular user becoming an administrator.
   
