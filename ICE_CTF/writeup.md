@@ -2,18 +2,13 @@
 
 > Salam jumaat @everyone, here jumaats challenge. It is privilege escalation based on CVE-2019-14287. Feel free to check it out :).
 > Privilege escalation is the process by which a user gains elevated access to resources that are normally protected from that user's standard capabilities. This can occur in two main forms:
-  
-  Vertical Privilege Escalation: A lower-privileged user gains the permissions of a higher-privileged user, such as a regular user becoming an administrator.
-  
-  Horizontal Privilege Escalation: A user gains the permissions of another user with the same privilege level, often to access information or resources they are not authorized to access.
-  
-  Privilege escalation can happen due to system vulnerabilities, misconfigurations, or through exploitation of application bugs. It's a critical security issue as it can allow unauthorized users to compromise the entire system or network.
-  
-  Creds :
-  ssh [ctf-player@ice-training.syamilyusof.com](mailto:ctf-player@ice-training.syamilyusof.com) -p 2222
-  Password : verysecure
-  
-  Dockerfile : https://drive.google.com/file/d/1dkbyr81Ji2rmwYn6npOGKQPzM-3LE75y/view?usp=drive_link
+> Vertical Privilege Escalation: A lower-privileged user gains the permissions of a higher-privileged user, such as a regular user becoming an administrator.
+> Horizontal Privilege Escalation: A user gains the permissions of another user with the same privilege level, often to access information or resources they are not authorized to access.
+> Privilege escalation can happen due to system vulnerabilities, misconfigurations, or through exploitation of application bugs. It's a critical security issue as it can allow unauthorized users to compromise the entire system or network.
+> Creds :
+> ssh [ctf-player@ice-training.syamilyusof.com](mailto:ctf-player@ice-training.syamilyusof.com) -p 2222
+> Password : verysecure
+> Dockerfile : https://drive.google.com/file/d/1dkbyr81Ji2rmwYn6npOGKQPzM-3LE75y/view?usp=drive_link
 
 1. This challenge based on CVE-2019-14287
     
@@ -27,8 +22,15 @@
     
     <aside>
     💡 sudo -l command is used to list the commands that a user is allowed to run using 'sudo
-    
     </aside>
+
+
+```bash
+ctf-player@d86f88d61095:~$ sudo -l
+Password: 
+User ctf-player may run the following commands on d86f88d61095:
+    (ALL, !root) /bin/base64
+```
     
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/703f9dd9-36fd-453d-93d3-099f508c8cdf/263919ba-ea01-4c27-9f7f-c8006042f8d9/Untitled.png)
