@@ -693,3 +693,9 @@ flag = p.recvall(): Receives all data from the server, which is expected to incl
 [eyun@eax pico]$ python ex.py
 Flag:  b"You don't have what it takes. Only a true wizard could change my suspicions. What do you have to say?\nHere's your input:                                                                                                      uc    \x00                                                                                                                                                                                                                                                    \x00aaaaba`@@\nI have NO clue how you did that, you must be a wizard. Here you go...\npicoCTF{f0rm47_57r?_f0rm47_m3m_99fd82cd}"
 ```
+
+## rsa oracle
+
+
+
+[ref](https://github.com/noamgariani11/picoCTF-2024-Writeup/blob/main/Cryptography/rsa_oracle.md)
