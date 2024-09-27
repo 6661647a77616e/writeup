@@ -1,0 +1,326 @@
+#STARTER
+---
+## modular exponents
+```python
+# Calculate 10^17 mod 22663
+base = 101
+exponent = 17
+modulus = 22663
+
+result = pow(base, exponent, modulus)
+
+print(f"The result of 10^17 mod 22663 is: {result}")
+```
+
+## public keys
+
+```python
+# Given values
+message = 12
+e = 65537
+p = 17
+q = 23
+
+# Step 1: Calculate N (the modulus)
+N = p * q
+
+# Step 2: Perform modular exponentiation
+ciphertext = pow(message, e, N)
+
+# Print the result
+print(f"The ciphertext is: {ciphertext}")
+```
+
+## euler's totient
+
+```python
+# Given primes
+p = 857504083339712752489993810777
+q = 1029224947942998075080348647219
+# Calculate N
+N = p * q
+# Calculate Euler's totient
+phi = (p - 1) * (q - 1)
+print(f"Euler's totient φ(N) is: {phi}")
+```
+
+## private key
+
+```python
+def extended_gcd(a, b):
+    if a == 0:
+        return b, 0, 1
+    else:
+        gcd, x, y = extended_gcd(b % a, a)
+        return gcd, y - (b // a) * x, x
+
+def mod_inverse(e, phi):
+    gcd, x, _ = extended_gcd(e, phi)
+    if gcd != 1:
+        raise Exception("Modular inverse does not exist")
+    else:
+        return x % phi
+
+# Given primes
+p = 857504083339712752489993810777
+q = 1029224947942998075080348647219
+
+# Given public exponent
+e = 65537
+
+# Calculate N
+N = p * q
+
+# Calculate Euler's totient
+phi = (p - 1) * (q - 1)
+
+# Calculate private key d
+d = mod_inverse(e, phi)
+
+print(f"The private key d is: {d}")
+```
+
+## rsa decryption
+
+```python
+# Given parameters
+N = 882564595536224140639625987659416029426239230804614613279163
+e = 65537
+c = 77578995801157823671636298847186723593814843845525223303932
+
+# Private key d from the previous challenge
+# Note: You should replace this with the actual value you calculated
+d = 121832886702415731577073962957377780195510499965398469843281
+
+# Decrypt the ciphertext
+m = pow(c, d, N)
+
+print(f"The decrypted message is: {m}")
+```
+
+## rsa signatures
+
+```python
+from Crypto.Hash import SHA256
+from Crypto.Util.number import bytes_to_long, long_to_bytes
+
+# Read the private key file
+with open('private_0a1880d1fffce9403686130a1f932b10.key', 'r') as key_file:
+    key_data = key_file.read().strip().split('\n')
+
+# Parse the key data
+N = int(key_data[0].split('=')[1])
+d = int(key_data[1].split('=')[1])
+
+# Public exponent e (usually 65537)
+e = 65537
+
+# The flag to be signed
+flag = "crypto{Immut4ble_m3ssag1ng}"
+
+# Step 1: Hash the flag using SHA256
+hash_object = SHA256.new(flag.encode())
+hashed = hash_object.digest()
+
+# Step 2: Convert the hash to a long integer
+hash_as_long = bytes_to_long(hashed)
+
+# Step 3: Sign the hash (encrypt with private key)
+signature = pow(hash_as_long, d, N)
+
+print(f"The signature is: {signature}")
+
+# Verification (optional, but good to check)
+# Step 4: "Decrypt" the signature with public key
+decrypted_hash = pow(signature, e, N)
+
+# Step 5: Convert back to bytes and compare with original hash
+decrypted_hash_bytes = long_to_bytes(decrypted_hash)
+assert decrypted_hash_bytes == hashed, "Signature verification failed!"
+
+print("Signature verified successfully!")
+```
+
+---
+
+# PRIMES PART 1
+* using primefac so slow, use factordb.com instead.
+
+```python
+from primefac import primefac
+
+# The number to factorize
+n = 510143758735509025530880200653196460532653147
+
+# Factorize the number
+factors = list(primefac(n))
+
+# Sort the factors (to ensure we get the smaller one first)
+factors.sort()
+
+# Print the smaller factor
+print(f"The smaller prime factor is: {factors[0]}")
+```
+
+or use primefac-fork, faster version of primefac
+
+have primefac-fork installed
+`pip install git+git://github.com/elliptic-shiho/primefac-fork@master`
+
+and code this
+```python
+from primefac import primefac
+
+def factorize(n):
+    # Use primefac to factorize the number
+    factors = list(primefac(n))
+    
+    # Sort the factors to ensure we get the smaller one first
+    factors.sort()
+    
+    return factors
+
+# The number to factorize
+n = 510143758735509025530880200653196460532653147
+
+# Factorize the number
+prime_factors = factorize(n)
+
+# Print the smaller prime factor
+print(f"The smaller prime factor is: {prime_factors[0]}")
+
+# Optional: Print both factors to verify
+print(f"The larger prime factor is: {prime_factors[1]}")
+print(f"Verification: {prime_factors[0] * prime_factors[1] == n}")
+```
+
+## inferius prime
+
+we are given inferius.py and output.txt. this is classic RSA encryption with small key size.
+
+1. to decrypt we need to factor n into its prime factors p and q.
+2. once we have p and q we can calculate phi. and fidn private key d
+3. then decrypt the ciphertext using pow(ct,d,n)
+
+```python
+from Crypto.Util.number import inverse, long_to_bytes
+from sympy import factorint
+
+# Given values
+n = 984994081290620368062168960884976209711107645166770780785733
+e = 65537
+ct = 948553474947320504624302879933619818331484350431616834086273
+
+# Factor n
+factors = factorint(n)
+p, q = factors.keys()
+
+# Calculate phi and d
+phi = (p - 1) * (q - 1)
+d = inverse(e, phi)
+
+# Decrypt the ciphertext
+pt = pow(ct, d, n)
+
+# Convert to bytes and print the flag
+flag = long_to_bytes(pt)
+print(f"The flag is: {flag.decode()}")
+```
+
+
+## monoprime
+
+RSA security depends on difficulty factoring product of two large prime numbers. Using only one prime number makes it easier to attack rsa algorithm.
+
+
+check if the given n is indeed prime
+```python
+from Crypto.Util.number import isPrime
+
+n = 171731371218065444125482536302245915415603318380280392385291836472299752747934607246477508507827284075763910264995326010251268493630501989810855418416643352631102434317900028697993224868629935657273062472544675693365930943308086634291936846505861203914449338007760990051788980485462592823446469606824421932591
+
+if isPrime(n):
+    print("n is prime")
+else:
+    print("n is not prime")
+```
+
+if yes then we can decrypt with
+```python
+from Crypto.Util.number import long_to_bytes
+
+n = 171731371218065444125482536302245915415603318380280392385291836472299752747934607246477508507827284075763910264995326010251268493630501989810855418416643352631102434317900028697993224868629935657273062472544675693365930943308086634291936846505861203914449338007760990051788980485462592823446469606824421932591
+e = 65537
+ct = 161367550346730604451454756189028938964941280347662098798775466019463375610700074840105776873791605070092554650190486030367121011578171525759600774739890458414593857709994072516290998135846956596662071379067305011746842247628316996977338024343628757374524136260758515864509435302781735938531030576289086798942
+
+phi = n - 1
+d = pow(e, -1, phi)
+pt = pow(ct, d, n)
+flag = long_to_bytes(pt)
+print(flag)
+```
+
+## Square Eyes
+you cant use the <strong>same prime<strong> twice. it becomes p^2 instead of p. solution :
+```python
+import math
+from Crypto.Util.number import long_to_bytes, inverse
+
+n = 535860808044009550029177135708168016201451343147313565371014459027743491739422885443084705720731409713775527993719682583669164873806842043288439828071789970694759080842162253955259590552283047728782812946845160334801782088068154453021936721710269050985805054692096738777321796153384024897615594493453068138341203673749514094546000253631902991617197847584519694152122765406982133526594928685232381934742152195861380221224370858128736975959176861651044370378539093990198336298572944512738570839396588590096813217791191895941380464803377602779240663133834952329316862399581950590588006371221334128215409197603236942597674756728212232134056562716399155080108881105952768189193728827484667349378091100068224404684701674782399200373192433062767622841264055426035349769018117299620554803902490432339600566432246795818167460916180647394169157647245603555692735630862148715428791242764799469896924753470539857080767170052783918273180304835318388177089674231640910337743789750979216202573226794240332797892868276309400253925932223895530714169648116569013581643192341931800785254715083294526325980247219218364118877864892068185905587410977152737936310734712276956663192182487672474651103240004173381041237906849437490609652395748868434296753449
+e = 65537
+ct = 222502885974182429500948389840563415291534726891354573907329512556439632810921927905220486727807436668035929302442754225952786602492250448020341217733646472982286222338860566076161977786095675944552232391481278782019346283900959677167026636830252067048759720251671811058647569724495547940966885025629807079171218371644528053562232396674283745310132242492367274184667845174514466834132589971388067076980563188513333661165819462428837210575342101036356974189393390097403614434491507672459254969638032776897417674577487775755539964915035731988499983726435005007850876000232292458554577437739427313453671492956668188219600633325930981748162455965093222648173134777571527681591366164711307355510889316052064146089646772869610726671696699221157985834325663661400034831442431209123478778078255846830522226390964119818784903330200488705212765569163495571851459355520398928214206285080883954881888668509262455490889283862560453598662919522224935145694435885396500780651530829377030371611921181207362217397805303962112100190783763061909945889717878397740711340114311597934724670601992737526668932871436226135393872881664511222789565256059138002651403875484920711316522536260604255269532161594824301047729082877262812899724246757871448545439896
+
+# Find p by taking the square root of n
+p = int(math.isqrt(n))
+
+# Calculate phi(n)
+phi = p * (p - 1)
+
+# Calculate d
+d = inverse(e, phi)
+
+# Decrypt the message
+pt = pow(ct, d, n)
+
+# Convert to bytes and print the flag
+flag = long_to_bytes(pt)
+print(f"The decrypted message is: {flag.decode()}")
+```
+
+## Manyprime
+
+why only use 2 prime , ADD MORE PRIMES, nope the security will drop signf, can easily decrypt using ECC algo.
+```python
+from factordb.factordb import FactorDB
+from Crypto.Util.number import long_to_bytes
+
+def phi(factors):
+    result = 1
+    for prime, power in factors:
+        result *= (prime - 1) * (prime ** (power - 1))
+    return result
+
+n = 580642391898843192929563856870897799650883152718761762932292482252152591279871421569162037190419036435041797739880389529593674485555792234900969402019055601781662044515999210032698275981631376651117318677368742867687180140048715627160641771118040372573575479330830092989800730105573700557717146251860588802509310534792310748898504394966263819959963273509119791037525504422606634640173277598774814099540555569257179715908642917355365791447508751401889724095964924513196281345665480688029639999472649549163147599540142367575413885729653166517595719991872223011969856259344396899748662101941230745601719730556631637
+e = 65537
+ct = 320721490534624434149993723527322977960556510750628354856260732098109692581338409999983376131354918370047625150454728718467998870322344980985635149656977787964380651868131740312053755501594999166365821315043312308622388016666802478485476059625888033017198083472976011719998333985531756978678758897472845358167730221506573817798467100023754709109274265835201757369829744113233607359526441007577850111228850004361838028842815813724076511058179239339760639518034583306154826603816927757236549096339501503316601078891287408682099750164720032975016814187899399273719181407940397071512493967454225665490162619270814464
+
+# Factorize n using FactorDB
+f = FactorDB(n)
+f.connect()
+factors = f.get_factor_list()
+
+# Calculate phi(n)
+phi_n = phi([(p, factors.count(p)) for p in set(factors)])
+
+# Calculate d
+d = pow(e, -1, phi_n)
+
+# Decrypt the message
+pt = pow(ct, d, n)
+
+# Convert to bytes and print the flag
+flag = long_to_bytes(pt)
+print(f"The decrypted message is: {flag.decode()}")
+```
+---
+# PUBLIC EXPONENT
