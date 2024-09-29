@@ -8,3 +8,4 @@ People
 4.[BOH22/23 WesleyWong](https://github.com/WesleyWong420/Battle-of-Hackers-2022-2023)
 5.[BOH23 warlocksmurk](https://github.com/warlocksmurf/localctf-writeups/blob/main/boh2023/)
 6.[BOH23 bchicken](https://github.com/bchicken69/ABOH-23-Local/)
+7.[IHACK22 netbysec](https://github.com/Netbytesec/UiTM-iHack2022-Qualification/tree/main/Pwn)

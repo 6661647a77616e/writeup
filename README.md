@@ -68,3 +68,26 @@ masscan, probed for HTTP(s) servers, and grabbed the HTTP titles.
 
 https://gist.github.com/githubfoam/08efac0343f98bd727caa32e6c81f655
 
+
+---
+
+# john and hashcat
+
+## on linux account
+`cat /etc/shadow > pass.txt` remove all , only the hash linux account password.
+`john -format-crypt` pass.txt
+
+## for zip files
+obtain hash of zip 
+`sudo zip2john pass.zip > ziphash.txt` 
+and `sudo john --format=zip ziphash.txt`
+or [remove the arhive name](https://www.youtube.com/watch?v=IHoH05IMBe4) and `ziphash -a 0 -m 13600 ziphash.txt /usr/share/wordlists/rockyou.txt`
+
+## for rar files
+obtain hash of rar files
+`hashcat -m 13000 rarhashes.txt /usr/share/wordlists/rockyou.txt`
+
+## update rockyou.txt
+`cd /usr/share/wordlists/` and do ` wget https://github.com/praetorian-inc/Hob0Rules/raw/master/wordlists/rockyou.txt.gz -O rockyou_latest.txt.gz`
+
+
